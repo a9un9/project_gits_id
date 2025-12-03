@@ -1,0 +1,470 @@
+openapi: 3.0.0
+info:
+  title: Project GITS.ID API
+  version: "1.0"
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+  # AUTH
+  /api/auth/register:
+    post:
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              example:
+                message: "User registered successfully"
+
+  /api/auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              example:
+                access_token: "your-jwt-token"
+
+  /api/auth/logout:
+    post:
+      summary: Logout
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Logout success
+          content:
+            application/json:
+              example:
+                message: "Logged out successfully"
+
+  # AUTHORS
+  /api/authors:
+    get:
+      summary: List authors
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
+    post:
+      summary: Create author
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorInput'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Author'
+
+  /api/authors/{id}:
+    get:
+      summary: Get author by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              $ref: '#/components/schemas/Author'
+    put:
+      summary: Update author
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorInput'
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              $ref: '#/components/schemas/Author'
+    delete:
+      summary: Delete author
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              example:
+                message: "Author deleted successfully"
+
+  # PUBLISHERS
+  /api/publishers:
+    get:
+      summary: List publishers
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Publisher'
+    post:
+      summary: Create publisher
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherInput'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Publisher'
+
+  /api/publishers/{id}:
+    get:
+      summary: Get publisher by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              $ref: '#/components/schemas/Publisher'
+    put:
+      summary: Update publisher
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublisherInput'
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              $ref: '#/components/schemas/Publisher'
+    delete:
+      summary: Delete publisher
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              example:
+                message: "Publisher deleted successfully"
+
+  # BOOKS
+  /api/books:
+    get:
+      summary: List books
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+    post:
+      summary: Create book
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              $ref: '#/components/schemas/Book'
+
+  /api/books/{id}:
+    get:
+      summary: Get book by ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              $ref: '#/components/schemas/Book'
+    put:
+      summary: Update book
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookInput'
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              $ref: '#/components/schemas/Book'
+    delete:
+      summary: Delete book
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              example:
+                message: "Book deleted successfully"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Author:
+      type: object
+      properties:
+        id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        bio:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    AuthorInput:
+      type: object
+      required:
+        - first_name
+        - last_name
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        bio:
+          type: string
+
+    Publisher:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        country:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    PublisherInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        country:
+          type: string
+
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        author_id:
+          type: integer
+        publisher_id:
+          type: integer
+        price:
+          type: number
+          format: float
+        published_year:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    BookInput:
+      type: object
+      required:
+        - title
+        - author_id
+        - publisher_id
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        author_id:
+          type: integer
+        publisher_id:
+          type: integer
+        price:
+          type: number
+          format: float
+        published_year:
+          type: integer

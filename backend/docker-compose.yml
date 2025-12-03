@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    container_name: project_gits_id
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: project_gits_id_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: bangsat
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
