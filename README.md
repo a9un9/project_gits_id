@@ -78,7 +78,7 @@ php artisan db:seed
 php artisan serve
 
 5. Postman collection or Swagger documentation.
-untuk Postman collection ada di file openapi.yml didalam folder backend, tinggal import di postman
+untuk Postman collection ada di file openapi.yml didalam folder backend, tinggal import ke postman
 
 
 
