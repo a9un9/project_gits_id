@@ -128,4 +128,6 @@ npm install
 
 npm run dev
 
-
+Username & Password default
+admin@gmail.com
+password
