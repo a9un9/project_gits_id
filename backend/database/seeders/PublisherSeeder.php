@@ -9,12 +9,14 @@ class PublisherSeeder extends Seeder
 {
     public function run(): void
     {
-        Publisher::create(
-            ['name' => 'Gramedia']
-        );
+        Publisher::create([
+            'name' => 'Gramedia',
+            'country' => 'Indonesia'
+        ]);
         
-        Publisher::create(
-            ['name' => 'Erlangga']
-        );
+        Publisher::create([
+            'name' => 'Erlangga',
+            'country' => 'Indonesia'
+        ]);
     }
 }
