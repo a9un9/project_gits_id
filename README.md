@@ -67,7 +67,7 @@ cd backend
 composer install
 copy .env.example menjadi .env
 composer require tymon/jwt-auth
-php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider
+php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServiceProvider"
 php artisan jwt:secret // Perintah ini otomatis membuat JWT secret key dan menambahkan ke file .env
 JWT_SECRET=generated_random_key_here // setelah perintah ini php artisan jwt:secret, akan otomatis muncul disini
 
